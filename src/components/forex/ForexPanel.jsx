@@ -13,7 +13,7 @@ export default function ForexPanel() {
   });
 
   return (
-    <div className="w-96 bg-gray-50 border-l flex flex-col">
+    <div className="max-w-md w-full bg-gray-50 border-l flex flex-col">
       <div className="h-16 p-4 border-b flex items-center">
         <h2 className="text-xl font-bold">Forex Prices</h2>
       </div>

@@ -1,13 +1,17 @@
 import React from 'react';
 import { useInView } from 'react-intersection-observer';
 import { useAuth } from '../../context/AuthContext';
+import { useUserStatus } from '../../context/UserStatusContext';
 import { MotionDiv, fadeIn } from '../animations';
 import { formatTime } from '../../utils/dateUtils';
 import UserAvatar from '../users/UserAvatar';
 
 export default function MessageItem({ message }) {
   const { me } = useAuth();
-  const isCurrentUser = message.user === me?._id | message.user._id === me?._id;
+  const { userStatuses } = useUserStatus();
+
+  const isOnline = userStatuses[message.user._id] === 'online' | message.user._id === me?._id;
+  const isCurrentUser = message.user._id === me?._id;
   const [ref, inView] = useInView({
     triggerOnce: true,
     threshold: 0.1
@@ -21,7 +25,7 @@ export default function MessageItem({ message }) {
       animate={inView ? "animate" : "initial"}
       className={`flex items-start gap-3 ${isCurrentUser ? 'flex-row-reverse' : 'flex-row'}`}
     >
-      <UserAvatar user={message.user} size="sm" />
+      <UserAvatar user={message.user} isOnline={isOnline} size="sm" />
 
       <div className={`max-w-[70%] ${isCurrentUser ? 'bg-blue-500 text-white' : 'bg-gray-100'
         } rounded-lg p-3`}>

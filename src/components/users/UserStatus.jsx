@@ -26,7 +26,7 @@ export default function UserStatus() {
         className="p-4 border-t bg-gray-900"
       >
         <div className="flex items-center gap-3">
-          <UserAvatar user={me} />
+          <UserAvatar user={me} isOnline={true} />
           <div className="flex-1 min-w-0">
             <p className="text-white truncate">{me?.name}</p>
             <p className="text-xs text-gray-400">{me?.email}</p>

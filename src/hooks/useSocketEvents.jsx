@@ -30,17 +30,17 @@ export function useSocketEvents() {
     });
 
     // Handle channel events
-    socket.on('channelCreated', (channel) => {
-      showAlert(`New channel "${channel.name}" created`, 'info');
-    });
+    // socket.on('channelCreated', (channel) => {
+    //   showAlert(`New channel "${channel.name}" created`, 'info');
+    // });
 
-    socket.on('channelUpdated', (channel) => {
-      showAlert(`Channel "${channel.name}" updated`, 'info');
-    });
+    // socket.on('channelUpdated', (channel) => {
+    //   showAlert(`Channel "${channel.name}" updated`, 'info');
+    // });
 
-    socket.on('channelDeleted', (channel) => {
-      showAlert(`Channel "${channel.name}" deleted`, 'info');
-    });
+    // socket.on('channelDeleted', (channel) => {
+    //   showAlert(`Channel "${channel.name}" deleted`, 'info');
+    // });
 
     // Handle message events
     socket.on('messageCreated', ({ channel, user }) => {
@@ -51,9 +51,9 @@ export function useSocketEvents() {
       socket.off('authError');
       socket.off('userLogin');
       socket.off('userLogout');
-      socket.off('channelCreated');
-      socket.off('channelUpdated');
-      socket.off('channelDeleted');
+      // socket.off('channelCreated');
+      // socket.off('channelUpdated');
+      // socket.off('channelDeleted');
       socket.off('messageCreated');
     };
   }, [socket, signOut, showAlert, navigate]);
