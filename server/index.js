@@ -55,9 +55,18 @@ app.use((err, req, res, next) => {
 app.use('/api/auth', authRoutes);
 app.use('/api/channels', channelRoutes);
 app.use('/api/forex', forexRoutes);
+app.get('/api/users/status', (req, res) => {
+  const statuses = Object.fromEntries(
+    [...userStatuses.entries()].map(([userId, value]) => [userId, value.status])
+  );
+  res.json(statuses);
+});
 
 // Socket.io middleware
 io.use(socketAuth);
+
+// Store user statuses
+const userStatuses = new Map();
 
 // Socket.io events
 io.on('connection', (socket) => {
@@ -83,7 +92,37 @@ io.on('connection', (socket) => {
     console.log(`💬 New message in channel: ${data.channelId}`);
   });
 
+  // Event: User joins with their userId
+  socket.on("userOnline", (userId) => {
+    // Mark user as online
+    userStatuses.set(userId, { socketId: socket.id, status: "online" });
+    socket.broadcast.emit("userStatusUpdate", { userId, status: "online" });
+    console.log(`🔗 User ${userId} is now online`);
+  });
+
+  socket.on("userOffline", (userId) => {
+    // Mark user as offline
+    userStatuses.set(userId, { socketId: socket.id, status: "offline" });
+    socket.broadcast.emit("userStatusUpdate", { userId, status: "offline" });
+    console.log(`❌ User ${userId} is now offline`);
+  });
+
   socket.on('disconnect', () => {
+    // Find the user by their socketId
+    const userId = [...userStatuses.entries()].find(
+      ([_, value]) => value.socketId === socket.id
+    )?.[0];
+
+    if (userId) {
+      // Mark user as offline
+      userStatuses.set(userId, { socketId: socket.id, status: "offline" });
+      console.log(userStatuses);
+
+      // Notify other users that this user is offline
+      socket.broadcast.emit("userStatusUpdate", { userId, status: "offline" });
+      console.log(`❌ User ${userId} is now offline`);
+    }
+
     console.log(`🔌 Client disconnected: ${socket.id}`);
   });
 });

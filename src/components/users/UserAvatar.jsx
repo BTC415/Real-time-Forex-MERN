@@ -1,7 +1,7 @@
 import React from 'react';
 import { BiUser } from 'react-icons/bi';
 
-export default function UserAvatar({ user, size = 'md' }) {
+export default function UserAvatar({ user, isOnline, size = 'md' }) {
   const sizeClasses = {
     sm: 'w-8 h-8',
     md: 'w-10 h-10',
@@ -19,7 +19,7 @@ export default function UserAvatar({ user, size = 'md' }) {
       <div className={`${sizeClasses[size]} rounded-full bg-gray-200 flex items-center justify-center`}>
         <BiUser className={`${iconSizes[size]} text-gray-500`} />
       </div>
-      <div className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 rounded-full border-2 border-gray-900" />
+      <div className={`absolute bottom-0 right-0 w-3 h-3 rounded-full border-2 border-gray-900 ${isOnline ? "bg-green-500" : "bg-gray-500"}`} />
     </div>
   );
 }

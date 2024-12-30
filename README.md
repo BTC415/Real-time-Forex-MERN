@@ -96,5 +96,3 @@ cd src && npm run dev
 
 ## License
 This project is licensed under the [LICENSE](https://github.com/BTC415/Real-time-Forex-MERN/blob/master/LICENSE) - see the LICENSE file for details.
-
-

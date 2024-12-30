@@ -1,10 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { BiLock } from 'react-icons/bi';
 import Modal from './Modal';
 
 export default function ChannelModal({ isOpen, onClose, onSubmit, channel }) {
   const [name, setName] = useState(channel ? channel.name : '');
   const [isPrivate, setIsPrivate] = useState(channel ? channel.isPrivate : false);
+
+  // Synchronize state with the channel prop whenever it changes
+  useEffect(() => {
+    if (channel) {
+      setName(channel.name);
+      setIsPrivate(channel.isPrivate);
+    } else {
+      setName('');
+      setIsPrivate(false);
+    }
+  }, [channel]);
 
   const handleSubmit = (e) => {
     e.preventDefault();

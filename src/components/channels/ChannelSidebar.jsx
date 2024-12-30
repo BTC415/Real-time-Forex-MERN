@@ -82,13 +82,14 @@ export default function ChannelSidebar({ currentChannel, onChannelSelect }) {
               variants={slideIn}
               initial="initial"
               animate="animate"
-              className={`flex items-center justify-between p-2 rounded group cursor-pointer ${currentChannel?._id === channel._id
+              className={`flex items-center justify-between p-2 rounded group relative cursor-pointer ${currentChannel?._id === channel._id
                 ? 'bg-gray-700 text-white'
                 : 'text-gray-400 hover:bg-gray-700 hover:text-white'
                 }`}
-              onClick={() => onChannelSelect(channel)}
             >
-              <div className="flex items-center space-x-2">
+              <div className="flex flex-1 items-center space-x-2"
+                onClick={() => onChannelSelect(channel)}
+              >
                 {channel.isPrivate ? (
                   <BiLock className="w-4 h-4 text-gray-400" />
                 ) : (
