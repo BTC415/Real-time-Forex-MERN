@@ -37,11 +37,7 @@ export const updateUser = async (req, res) => {
 
     // Allow name updates
     if (name) updates.name = name.trim();
-
-    // Allow role updates only if the user is an admin
-    // if (role && req.user.role === 'admin') {
-      updates.role = role;
-    // }
+    updates.role = role;
 
     // Update the user in the database
     const user = await User.findByIdAndUpdate(
