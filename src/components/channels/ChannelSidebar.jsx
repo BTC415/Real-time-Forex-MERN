@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import { BiPlus, BiHash, BiLock, BiPencil, BiTrash } from 'react-icons/bi';
 import { useAuth } from '@/context/AuthContext';
 import { useChannels } from '@/hooks/useChannels';
-import { BiPlus, BiHash, BiLock, BiPencil, BiTrash } from 'react-icons/bi';
 import { MotionDiv, slideIn } from '@/components/animations';
 import ChannelModal from '@/components/modals/ChannelModal';
 import ConfirmModal from '@/components/modals/ConfirmModal';
@@ -71,7 +71,6 @@ export default function ChannelSidebar({ currentChannel, onChannelSelect }) {
           )}
         </h2>
       </div>
-
       <div className="flex-1 overflow-y-auto p-2 space-y-1">
         {loading ? (
           <div className="text-gray-400 text-center p-4">Loading channels...</div>
@@ -126,9 +125,7 @@ export default function ChannelSidebar({ currentChannel, onChannelSelect }) {
           ))
         )}
       </div>
-
       <UserStatus />
-
       <ChannelModal
         isOpen={isModalOpen}
         onClose={() => {
@@ -138,7 +135,6 @@ export default function ChannelSidebar({ currentChannel, onChannelSelect }) {
         onSubmit={handleChannelSubmit}
         channel={editingChannel}
       />
-
       <ConfirmModal
         isOpen={isConfirmOpen}
         onClose={() => {
