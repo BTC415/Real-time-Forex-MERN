@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import { BiCheckCircle, BiErrorCircle, BiInfoCircle } from 'react-icons/bi';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const icons = {
   success: <BiCheckCircle className="w-5 h-5" />,
@@ -29,7 +29,7 @@ export default function Alert({ message, type = 'info', onClose, duration = 3000
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -20 }}
-          className={`fixed top-4 right-4 z-50 flex items-center gap-2 px-4 py-3 border rounded-lg shadow-lg ${colors[type]}`}
+          className={`fixed top-4 right-4 z-50 flex items-center gap-2 p-3 border rounded-lg shadow-lg ${colors[type]}`}
         >
           {icons[type]}
           <span>{message}</span>
