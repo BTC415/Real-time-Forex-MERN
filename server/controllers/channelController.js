@@ -26,7 +26,6 @@ export const createChannel = async (req, res) => {
     });
     await channel.save();
 
-    // Broadcast to all connected clients
     io.emit('channelCreated', {
       channel,
       user: { name: req.user.name }
@@ -50,7 +49,6 @@ export const updateChannel = async (req, res) => {
       throw new Error('Channel not found');
     }
 
-    // Broadcast to all connected clients
     io.emit('channelUpdated', {
       channel,
       user: { name: req.user.name }
@@ -71,7 +69,6 @@ export const deleteChannel = async (req, res) => {
 
     await Channel.deleteOne({ _id: req.params.channelId });
 
-    // Broadcast to all connected clients
     io.emit('channelDeleted', {
       channelId: req.params.channelId,
       channelName: channel.name,
@@ -84,7 +81,6 @@ export const deleteChannel = async (req, res) => {
   }
 };
 
-// Join a channel
 export const joinChannel = async (user, channelId) => {
   try {
     const channel = await Channel.findById(channelId);
@@ -93,7 +89,6 @@ export const joinChannel = async (user, channelId) => {
       throw new Error('Channel not found');
     }
 
-    // Add user to channel members if not already a member
     if (!channel.members.includes(user._id)) {
       channel.members.push(user._id);
       await channel.save();
@@ -109,7 +104,6 @@ export const joinChannel = async (user, channelId) => {
   }
 };
 
-// Leave a channel
 export const leaveChannel = async (user, channelId) => {
   try {
     const channel = await Channel.findById(channelId);
