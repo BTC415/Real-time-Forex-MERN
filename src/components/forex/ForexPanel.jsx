@@ -18,7 +18,6 @@ export default function ForexPanel() {
         <h2 className="text-xl font-bold">Forex Prices</h2>
       </div>
       <div className="p-4">
-        {/* Add the PriceTable component */}
         <PriceTable prices={prices} />
       </div>
       <div className="flex-1 p-4 space-y-4 overflow-y-auto">
