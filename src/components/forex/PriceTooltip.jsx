@@ -2,7 +2,10 @@ import React from 'react';
 import { BiTrendingUp, BiTrendingDown } from 'react-icons/bi';
 
 export default function PriceTooltip({ active, payload, label, data, meanPrice }) {
-  if (!active || !payload || !payload.length) return null;
+
+  if (!active || !payload || !payload.length) {
+    return null;
+  }
 
   const currentIndex = data.findIndex(d => d.time === label);
   const previousIndex = currentIndex > 0 ? currentIndex - 1 : null;
